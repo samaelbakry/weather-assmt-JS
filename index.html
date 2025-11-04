@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./imgs/weather.png" type="image/x-icon">
+    <!-- font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <!-- bootstrap  -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Weather</title>
+</head>
+
+<body>
+    <div class="container py-5 text-capitalize text-center">
+        <h1 class="text-light fw-bold">weather Forecast in 3 days</h1>
+        <div class="input-wrapper d-flex justify-content-center align-items-center mt-3">
+            <input type="text" class="rounded-pill w-75 border-0 p-2 form-control" placeholder="Find your location...">
+            <button type="button" class="btn btn-outline-secondary mx-2 rounded-pill ">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                search</button>
+        </div>
+        <div class="container py-5 glass-card my-3">
+            <div class="row rowData">
+               <!-- Dynamic content rendering generated through array iteration (mapping) -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="./JS/main.js"></script>
+</body>
+
+</html>
