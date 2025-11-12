@@ -1,4 +1,4 @@
-// e13eba9b6e5d44b6be381937250311 Api-Key
+const ApiKey = "e13eba9b6e5d44b6be381937250311"
 
 var searchInput = document.querySelector("input");
 var searchBtn = document.querySelector("button");
@@ -15,9 +15,9 @@ searchBtn.addEventListener("click", function () {
 });
 
 // get weather data from API //
-async function getForecast(result = "cairo") {
+async function getForecast(result) {
   try {
-    var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=e13eba9b6e5d44b6be381937250311&q=${result}&days=7`);
+    var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${ApiKey}&q=${result}&days=7`);
     var data = await response.json();
     // call display function with forecast and city name//
     display(data.forecast.forecastday, data.location.name);
@@ -25,8 +25,35 @@ async function getForecast(result = "cairo") {
     console.log("⚠️ Something went wrong");
   }
 }
-// show default city on load //
-getForecast();
+
+// show User Location on load //
+async function getCurrentLocation(lat , lon) {
+  try {
+    var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${ApiKey}&q=${lat},${lon}&days=7`);
+    var data = await response.json();
+    display(data.forecast.forecastday, data.location.name);
+  } catch (error) {
+    console.log("⚠️ Something went wrong");
+  }
+}
+// get User current Location  //
+function getUserLocation (){
+if (navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(
+    (position) =>{
+      let lat = position.coords.latitude
+      let lon = position.coords.longitude
+      getCurrentLocation(lat ,lon)
+    },
+    (error) =>{
+      console.log(error);
+      console.log("⚠️ Location access denied or error:");
+      getForecast("cairo")
+    }
+  )
+}
+}
+getUserLocation()
 
 function display(array, cityName) {
   // Day Name //
