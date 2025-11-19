@@ -5,17 +5,13 @@ var searchBtn = document.querySelector("button");
 
 // return search value//
 
-function getResults() {
-  return searchInput.value;
-}
 // trigger search when button clicked //
 searchBtn.addEventListener("click", function () {
-  var result = getResults();
-  getForecast(result);
+  getForecast(searchInput.value)
 });
 
 // get weather data from API //
-async function getForecast(result) {
+async function getForecast(result = "cairo") {
   try {
     var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${ApiKey}&q=${result}&days=7`);
     var data = await response.json();
@@ -48,11 +44,11 @@ if (navigator.geolocation){
     (error) =>{
       console.log(error);
       console.log("⚠️ Location access denied or error:");
-      getForecast("cairo")
     }
   )
 }
 }
+
 getUserLocation()
 
 function display(array, cityName) {
@@ -67,7 +63,7 @@ function display(array, cityName) {
     return date.toLocaleDateString("en-US" ,{ day: "numeric", month: "short" })
   }
   var content = "";
-  for (var i = 0; i < 3; i++) {
+  for (var i = 0; i < Math.min( 3 ,array.length ); i++) {
     var dayName = getDayName(array[i].date);
     var dayDate = getDayDate(array[i].date);
     content += ` 
